@@ -1,7 +1,12 @@
 import "./App.css";
+import InputSample from "./components/InputSample";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <InputSample />
+    </>
+  );
 }
 
 export default App;
