@@ -7,8 +7,11 @@ function App() {
   const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
+    id: "",
   });
-  const { username, email } = userInfo;
+
+  // 업데이트 시 id를 찾기 위해 id 추가
+  const { username, email, id } = userInfo;
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -25,16 +28,19 @@ function App() {
       id: 1,
       username: "Bob",
       email: "bob@naver.com",
+      active: true,
     },
     {
       id: 2,
       username: "Chris",
       email: "chris@naver.com",
+      active: false,
     },
     {
       id: 3,
       username: "Jay",
       email: "jay@naver.com",
+      active: false,
     },
   ]);
 
@@ -44,8 +50,8 @@ function App() {
   const createUser = () => {
     const user = {
       id: nextId.current,
-      username,
-      email,
+      username: username,
+      email: email,
     };
 
     setUsers((current) => {
@@ -69,6 +75,36 @@ function App() {
     setUsers(users.filter((user) => user.id !== id));
   };
 
+  // 유저 업데이트
+  const updateUser = () => {
+    setUsers(
+      users.map((user) =>
+        user.id === id ? { ...user, username: username, email: email } : user
+      )
+    );
+    setUserInfo({
+      username: "",
+      email: "",
+      id: "",
+    });
+  };
+
+  const modifyUser = (user) => {
+    setUserInfo({
+      username: user.username,
+      email: user.email,
+      id: user.id,
+    });
+  };
+
+  const onToggle = (id) => {
+    setUsers(
+      users.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  };
+
   return (
     <>
       <CreateUser
@@ -76,8 +112,14 @@ function App() {
         email={email}
         onChange={changeHandler}
         onCreate={createUser}
+        onUpdate={updateUser}
       />
-      <UserList users={users} onRemove={removeUser} />
+      <UserList
+        users={users}
+        onRemove={removeUser}
+        onToggle={onToggle}
+        onModify={modifyUser}
+      />
     </>
   );
 }
