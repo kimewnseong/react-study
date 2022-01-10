@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function User({ user, onRemove, onToggle, onModify }) {
+  // deps를 [] (빈 배열)로 두거나 생략하거나 props/ 상태를 주시해야할 때를 생각하면서 사용하자.
+  useEffect(() => {
+    console.log("user생성");
+    console.log(user);
+    return () => {
+      console.log("user 바뀌기 전");
+      console.log(user);
+    };
+  }, [user]);
+
   return (
     <div>
       <b
