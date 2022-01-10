@@ -8,25 +8,7 @@ function User(props) {
   );
 }
 
-export default function UserList() {
-  const users = [
-    {
-      id: 1,
-      username: "Bob",
-      email: "bob@naver.com",
-    },
-    {
-      id: 2,
-      username: "Chris",
-      email: "chris@naver.com",
-    },
-    {
-      id: 3,
-      username: "Jay",
-      email: "jay@naver.com",
-    },
-  ];
-
+export default function UserList({ users }) {
   const userlist = users.map((el) => <User key={el.id} user={el} />);
 
   return <>{userlist}</>;
