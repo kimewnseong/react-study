@@ -63,6 +63,12 @@ function App() {
     // 다음 만들어질 user의 id를 위해 nextId에 1추가
     nextId.current += 1;
   };
+
+  // 유저 삭제
+  const removeUser = (id) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
+
   return (
     <>
       <CreateUser
@@ -71,7 +77,7 @@ function App() {
         onChange={changeHandler}
         onCreate={createUser}
       />
-      <UserList users={users} />
+      <UserList users={users} onRemove={removeUser} />
     </>
   );
 }
