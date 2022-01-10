@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import UserList from "./components/UserList";
 import CreateUser from "./CreateUser";
 
@@ -105,6 +105,11 @@ function App() {
     );
   };
 
+  const countActiveUsers = (users) =>
+    users.filter((user) => user.active).length;
+
+  const count = countActiveUsers(users);
+
   return (
     <>
       <CreateUser
@@ -120,6 +125,7 @@ function App() {
         onToggle={onToggle}
         onModify={modifyUser}
       />
+      <div>활성사용자 수 : {count}</div>
     </>
   );
 }
